@@ -2,7 +2,7 @@ import random
 import json
 from spooky_bag_def import spooky_loot_bag_def
 
-SEED_GLOBAL = 5005
+SEED_GLOBAL = 5004045
 
 random.seed()
 
@@ -37,7 +37,8 @@ def open_spooky_bag(bag_def):
     itemcategorylist = []
     for itemcategory in bag_def["items"]:
         if random.randint(1,maxprobnum) <= itemcategory["probability"]:            
-            itemcategorylist.append(itemcategory)
+            #itemcategorylist.append(itemcategory)
+            itemcategorylist += [itemcategory]
             #loot.append(pickup_random_item(itemcategory))
     loot = [ roll_for_item_in_category_with_unique_removal(item)
              for item in itemcategorylist ]
@@ -58,8 +59,10 @@ def spooky_loot_bag_openings(number_of_bags):
     #print(len(loot_history),loot_history)
     return loot_history
 
-if False:
+if True:
+    random.seed(SEED_GLOBAL)
     inventory = spooky_loot_bag_openings(300)
+    print('different items get',len(inventory))
     for item in inventory:
         print(item,inventory[item])
 
@@ -74,7 +77,7 @@ if False:
 case 3: open bags till have all rare reward, to simulate
 the number of bags needed to have all rare plans:
 """
-if True:
+if False:
     random.seed(SEED_GLOBAL)
     wantedlist = set(spooky_loot_bag_def["items"][1]["items"])
     print(wantedlist)
@@ -90,20 +93,24 @@ if True:
 case 4: we have some of the plans already, how many loots are needed
     to complete collection
 """
-if False:
+if True:
     random.seed(SEED_GLOBAL)
     already_have = [
+        "Plan: Assault Rifle Wraith's Wrath Paint (2023)",
+        "Plan: Chainsaw Ghostly Grinder Paint (2023)",
         "Plan: Dr. Bones (2023)",
         "Plan: Executioner Mask (2023)",
-        "Plan: Half Full Pumpkin Rack"      ,
-        "Plan: Happy Jack O’Lantern"        ,
-        "Plan: Mobster Jack O’Lantern"      ,
-        "Plan: Practice Jack O’Lantern"     ,
-        "Plan: Pumpkin Rack"                ,
-        "Plan: Surprised Jack O’Lantern"    ,
-        "Plan: Vault Boy Jack O’Lantern"    ,
-        "Plan: Vault Door Jack O’Lantern"   ,
-        "Plan: Grim Reaper Vault-Boy cutout",
+        "Plan: Hellfire V2 Prototype PA Arms Paint (2023)",
+        "Plan: Hellfire V2 Prototype PA Helmet Paint (2023)",
+        "Plan: Hellfire V2 Prototype PA Legs Paint (2023)",
+        "Plan: Hellfire V2 Prototype PA Torso Paint (2023)",
+        "Plan: Honeycomb Paper Ghost Lantern 01 (2023)",
+        "Plan: Honeycomb Paper Ghost Lantern 02 (2023)",
+        "Plan: Honeycomb Paper Jack-o'-Lantern 01 (2023)",
+        "Plan: Honeycomb Paper Jack-o'-Lantern 02 (2023)",
+        "Plan: Honeycomb Paper Spider Lantern (2023)",
+        "Plan: Princess Backpack (2023)",
+        "Plan: Rad Skull Rider Helmet (2023)"
     ]
     wantedlist = set(spooky_loot_bag_def["items"][1]["items"])
     wantedlist -= set(already_have)
